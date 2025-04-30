@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR con marcador personalizado</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/2.1.8/aframe/build/aframe-ar.min.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs>
+      <!-- Usa el marcador Hiro o cambia "hiro" por el nombre de tu marcador personalizado -->
+      <a-marker type="pattern" url="patt/pattern.patt">
+        <a-plane rotation="-90 0 0" width="2" height="2" color="#333" opacity="0.3"></a-plane>
+      
+        <a-entity gltf-model="modelos/hina_3d_anime_character_girl_for_blender.glb"
+                  position="0 0 0"
+                  scale="0.3 0.3 0.3"
+                  animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
+        </a-entity>
+      
+        <a-text value="Hina" position="0 1.2 0" color="#FFD700" align="center" scale="2 2 2"></a-text>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
