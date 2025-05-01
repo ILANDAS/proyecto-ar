@@ -17,6 +17,23 @@
                 camera>
       </a-entity>
 
+      <!-- NUEVOS TEXTOS flotando arriba y separados -->
+      <a-text value="Me atrapaste"
+          position="0 2.5 0.2"
+          color="white"
+          align="center"
+          scale="2.5 2.5 2.5"
+          animation="property: position; dir: alternate; dur: 1200; easing: easeInOutSine; to: 0 2.8 0.2; loop: true">
+    </a-text>
+
+    <a-text value="¡Oh no!"
+          position="0 3.1 0.2"
+          color="red"
+          align="center"
+          scale="2 2 2"
+          animation="property: position; dir: alternate; dur: 1500; easing: easeInOutSine; to: 0 3.6 0.2; loop: true">
+    </a-text>
+
       <!-- Marcador con modelo -->
       <a-marker type="pattern" url="patt/pattern.patt" id="marcador">
         <a-entity id="muñeco"
@@ -25,22 +42,6 @@
                   scale="0.04 0.04 0.04"
                   animation="property: scale; dir: alternate; dur: 1000; easing: easeInOutSine; to: 0.08 0.08 0.08; loop: true">
         </a-entity>
-        <!-- NUEVOS TEXTOS flotando arriba y separados -->
-        <a-text value="Me atrapaste"
-                position="0 2.5 0.2"
-                color="white"
-                align="center"
-                scale="2.5 2.5 2.5"
-                animation="property: position; dir: alternate; dur: 1200; easing: easeInOutSine; to: 0 2.8 0.2; loop: true">
-        </a-text>
-
-        <a-text value="¡Oh no!"
-                position="0 3.1 0.2"
-                color="red"
-                align="center"
-                scale="2 2 2"
-                animation="property: position; dir: alternate; dur: 1500; easing: easeInOutSine; to: 0 3.6 0.2; loop: true">
-        </a-text>
       </a-marker>
 
       <a-entity camera></a-entity>
@@ -61,7 +62,6 @@
             if (efectoActivado) return;
             efectoActivado = true;
 
-            // Mostrar filtro rojo
             overlay.setAttribute('visible', true);
             modelo.setAttribute('material', 'color: red; opacity: 0.7');
 
@@ -69,7 +69,6 @@
               modelo.setAttribute('visible', false);
               overlay.setAttribute('visible', false);
 
-              // Crear el texto "+1 punto" cuando el objeto desaparezca
               const texto = document.createElement('a-text');
               texto.setAttribute('value', '+1 punto');
               texto.setAttribute('position', '0 2 0.3');
@@ -79,14 +78,14 @@
               texto.setAttribute('animation', 'property: position; to: 0 2.5 0.3; dur: 1500; dir: alternate; loop: true; easing: easeOutElastic');
 
               escena.appendChild(texto);
-            }, 5000);  // Desaparece después de 5 segundos
+            }, 10000);
           });
 
           // Cuando se pierde el marcador
           marcador.addEventListener('markerLost', () => {
             overlay.setAttribute('visible', false);
 
-            // Si aún no pasaron los 5 segundos, cancelamos
+            // Si aún no pasaron los 60s, cancelamos
             if (timeoutId) {
               clearTimeout(timeoutId);
               timeoutId = null;
@@ -97,7 +96,6 @@
         }
       });
 
-      // Activamos el componente en la escena
       document.querySelector('a-scene').setAttribute('activar-efecto', '');
     </script>
   </body>
