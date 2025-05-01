@@ -17,7 +17,15 @@
                 camera>
       </a-entity>
 
-      <!-- NUEVOS TEXTOS flotando arriba y separados -->
+      <!-- Marcador con modelo -->
+      <a-marker type="pattern" url="patt/pattern.patt" id="marcador">
+        <a-entity id="muñeco"
+                  gltf-model="modelos/takodachi.glb"
+                  position="0 0.1 0"
+                  scale="0.04 0.04 0.04"
+                  animation="property: scale; dir: alternate; dur: 1000; easing: easeInOutSine; to: 0.08 0.08 0.08; loop: true">
+        </a-entity>
+        <!-- NUEVOS TEXTOS flotando arriba y separados -->
       <a-text value="Me atrapaste"
             position="0 2.5 0.2"
             color="white"
@@ -33,15 +41,6 @@
             scale="2 2 2"
             animation="property: position; dir: alternate; dur: 1500; easing: easeInOutSine; to: 0 3.6 0.2; loop: true">
       </a-text>
-
-      <!-- Marcador con modelo -->
-      <a-marker type="pattern" url="patt/pattern.patt" id="marcador">
-        <a-entity id="muñeco"
-                  gltf-model="modelos/takodachi.glb"
-                  position="0 0.1 0"
-                  scale="0.04 0.04 0.04"
-                  animation="property: scale; dir: alternate; dur: 1000; easing: easeInOutSine; to: 0.08 0.08 0.08; loop: true">
-        </a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
