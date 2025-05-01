@@ -19,20 +19,20 @@
 
       <!-- NUEVOS TEXTOS flotando arriba y separados -->
       <a-text value="Me atrapaste"
-          position="0 2.5 0.2"
-          color="white"
-          align="center"
-          scale="2.5 2.5 2.5"
-          animation="property: position; dir: alternate; dur: 1200; easing: easeInOutSine; to: 0 2.8 0.2; loop: true">
-    </a-text>
+            position="0 2.5 0.2"
+            color="white"
+            align="center"
+            scale="2.5 2.5 2.5"
+            animation="property: position; dir: alternate; dur: 1200; easing: easeInOutSine; to: 0 2.8 0.2; loop: true">
+      </a-text>
 
-    <a-text value="¡Oh no!"
-          position="0 3.1 0.2"
-          color="red"
-          align="center"
-          scale="2 2 2"
-          animation="property: position; dir: alternate; dur: 1500; easing: easeInOutSine; to: 0 3.6 0.2; loop: true">
-    </a-text>
+      <a-text value="¡Oh no!"
+            position="0 3.1 0.2"
+            color="red"
+            align="center"
+            scale="2 2 2"
+            animation="property: position; dir: alternate; dur: 1500; easing: easeInOutSine; to: 0 3.6 0.2; loop: true">
+      </a-text>
 
       <!-- Marcador con modelo -->
       <a-marker type="pattern" url="patt/pattern.patt" id="marcador">
@@ -78,7 +78,7 @@
               texto.setAttribute('animation', 'property: position; to: 0 2.5 0.3; dur: 1500; dir: alternate; loop: true; easing: easeOutElastic');
 
               escena.appendChild(texto);
-            }, 10000);
+            }, 60000);
           });
 
           // Cuando se pierde el marcador
