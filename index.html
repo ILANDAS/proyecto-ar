@@ -8,7 +8,7 @@
   <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs>
 
-      <!-- Filtro rojo: delante de la cámara pero oculto -->
+      <!-- Filtro rojo sobre la cámara (inicialmente oculto) -->
       <a-entity id="filtro-rojo"
                 geometry="primitive: plane; height: 100; width: 100"
                 material="color: red; opacity: 0.4"
@@ -25,29 +25,27 @@
                   scale="0.04 0.04 0.04"
                   animation="property: scale; dir: alternate; dur: 1000; easing: easeInOutSine; to: 0.08 0.08 0.08; loop: true">
         </a-entity>
-         <!-- NUEVOS TEXTOS flotando arriba y separados -->
-         <a-text value="Me atrapaste"
-                  position="0 2.5 0.2"
-                  color="white"
-                  align="center"
-                  scale="2.5 2.5 2.5"
-                  animation="property: position; dir: alternate; dur: 1200; easing: easeInOutSine; to: 0 2.8 0.2; loop: true">
-          </a-text>
+        <!-- NUEVOS TEXTOS flotando arriba y separados -->
+        <a-text value="Me atrapaste"
+                position="0 2.5 0.2"
+                color="white"
+                align="center"
+                scale="2.5 2.5 2.5"
+                animation="property: position; dir: alternate; dur: 1200; easing: easeInOutSine; to: 0 2.8 0.2; loop: true">
+        </a-text>
 
-          <a-text value="¡Oh no!"
-                  position="0 3.1 0.2"
-                  color="red"
-                  align="center"
-                  scale="2 2 2"
-                  animation="property: position; dir: alternate; dur: 1500; easing: easeInOutSine; to: 0 3.6 0.2; loop: true">
-          </a-text>
+        <a-text value="¡Oh no!"
+                position="0 3.1 0.2"
+                color="red"
+                align="center"
+                scale="2 2 2"
+                animation="property: position; dir: alternate; dur: 1500; easing: easeInOutSine; to: 0 3.6 0.2; loop: true">
+        </a-text>
       </a-marker>
 
       <a-entity camera></a-entity>
-
     </a-scene>
 
-    <!-- Script -->
     <script>
       AFRAME.registerComponent('activar-efecto', {
         init: function () {
@@ -56,21 +54,23 @@
           const overlay = document.querySelector('#filtro-rojo');
           const escena = document.querySelector('a-scene');
           let efectoActivado = false;
+          let timeoutId = null;
 
+          // Cuando se detecta el marcador
           marcador.addEventListener('markerFound', () => {
             if (efectoActivado) return;
             efectoActivado = true;
 
-            // Mostrar filtro rojo y cambiar color del modelo
+            // Mostrar filtro rojo
             overlay.setAttribute('visible', true);
             modelo.setAttribute('material', 'color: red; opacity: 0.7');
 
-            // Después de 60s
-            setTimeout(() => {
+            timeoutId = setTimeout(() => {
+              // El modelo desaparece después de 5 segundos
               modelo.setAttribute('visible', false);
               overlay.setAttribute('visible', false);
 
-              // Texto +1 punto
+              // Crear el texto "+1 punto" cuando el objeto desaparezca
               const texto = document.createElement('a-text');
               texto.setAttribute('value', '+1 punto');
               texto.setAttribute('position', '0 2 0.3');
@@ -78,12 +78,27 @@
               texto.setAttribute('scale', '2 2 2');
               texto.setAttribute('align', 'center');
               texto.setAttribute('animation', 'property: position; to: 0 2.5 0.3; dur: 1500; dir: alternate; loop: true; easing: easeOutElastic');
+
               escena.appendChild(texto);
-            }, 5000);
+            }, 5000);  // Desaparece después de 5 segundos
+          });
+
+          // Cuando se pierde el marcador
+          marcador.addEventListener('markerLost', () => {
+            overlay.setAttribute('visible', false);
+
+            // Si aún no pasaron los 5 segundos, cancelamos
+            if (timeoutId) {
+              clearTimeout(timeoutId);
+              timeoutId = null;
+              efectoActivado = false;
+              modelo.setAttribute('material', 'color: white; opacity: 1');
+            }
           });
         }
       });
 
+      // Activamos el componente en la escena
       document.querySelector('a-scene').setAttribute('activar-efecto', '');
     </script>
   </body>
