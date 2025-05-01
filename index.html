@@ -55,19 +55,35 @@
           const escena = document.querySelector('a-scene');
           let efectoActivado = false;
           let timeoutId = null;
-
-          // Cuando se detecta el marcador
+    
+          let modeloListo = false;
+    
+          // Esperamos a que el modelo esté cargado
+          modelo.addEventListener('model-loaded', () => {
+            modeloListo = true;
+          });
+    
           marcador.addEventListener('markerFound', () => {
-            if (efectoActivado) return;
+            if (efectoActivado || !modeloListo) return;
             efectoActivado = true;
-
+    
+            // Mostrar filtro rojo
             overlay.setAttribute('visible', true);
-            modelo.setAttribute('material', 'color: red; opacity: 0.7');
-
+    
+            // Cambiar color del modelo accediendo a los materiales internos
+            modelo.object3D.traverse(function (node) {
+              if (node.isMesh) {
+                node.material.color.set('red');
+                node.material.opacity = 0.7;
+                node.material.transparent = true;
+              }
+            });
+    
+            // Iniciar conteo regresivo
             timeoutId = setTimeout(() => {
               modelo.setAttribute('visible', false);
               overlay.setAttribute('visible', false);
-
+    
               const texto = document.createElement('a-text');
               texto.setAttribute('value', '+1 punto');
               texto.setAttribute('position', '0 2 0.3');
@@ -75,26 +91,32 @@
               texto.setAttribute('scale', '2 2 2');
               texto.setAttribute('align', 'center');
               texto.setAttribute('animation', 'property: position; to: 0 2.5 0.3; dur: 1500; dir: alternate; loop: true; easing: easeOutElastic');
-
               escena.appendChild(texto);
-            }, 5000);
+            }, 15000); // 15 segundos
           });
-
-          // Cuando se pierde el marcador
+    
           marcador.addEventListener('markerLost', () => {
             overlay.setAttribute('visible', false);
-
-            // Si aún no pasaron los 60s, cancelamos
+    
+            // Cancelar si el tiempo aún no pasa
             if (timeoutId) {
               clearTimeout(timeoutId);
               timeoutId = null;
               efectoActivado = false;
-              modelo.setAttribute('material', 'color: white; opacity: 1');
+    
+              // Restaurar color del modelo
+              modelo.object3D.traverse(function (node) {
+                if (node.isMesh) {
+                  node.material.color.set('white');
+                  node.material.opacity = 1;
+                  node.material.transparent = false;
+                }
+              });
             }
           });
         }
       });
-
+    
       document.querySelector('a-scene').setAttribute('activar-efecto', '');
     </script>
   </body>
