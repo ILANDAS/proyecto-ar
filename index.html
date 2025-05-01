@@ -14,9 +14,10 @@
 
         <!-- Modelo principal -->
         <a-entity gltf-model="modelos/takodachi.glb"
-                  position="0 0.1 0"
-                  scale="0.04 0.04 0.04"
-                  animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
+          position="0 0.1 0"
+          scale="0.04 0.04 0.04"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 6000"
+          atrapar-evento>
         </a-entity>
 
         <!-- Modelo adicional: fuegos artificiales (subido para visibilidad) -->
@@ -61,5 +62,32 @@
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
+    <script>
+      AFRAME.registerComponent('atrapar-evento', {
+        init: function () {
+          const modelo = this.el;
+          const escena = document.querySelector('a-scene');
+    
+          // Cambia a color rojo semi-transparente
+          modelo.setAttribute('material', 'color: red; opacity: 0.7');
+    
+          // Espera 60 segundos (60000 ms)
+          setTimeout(() => {
+            modelo.setAttribute('visible', false);
+    
+            // Crear texto +1 punto
+            const texto = document.createElement('a-text');
+            texto.setAttribute('value', '+1 punto');
+            texto.setAttribute('position', '0 1.5 0.3');
+            texto.setAttribute('color', 'lime');
+            texto.setAttribute('scale', '2 2 2');
+            texto.setAttribute('align', 'center');
+            texto.setAttribute('animation', 'property: position; to: 0 2.5 0.3; dur: 1500; easing: easeOutElastic; dir: alternate; loop: true');
+    
+            escena.appendChild(texto);
+          }, 60000);
+        }
+      });
+    </script>
   </body>
 </html>
