@@ -19,49 +19,43 @@
                   animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
         </a-entity>
 
-        <!-- Modelo adicional estático -->
+        <!-- Modelo adicional: fuegos artificiales (subido para visibilidad) -->
         <a-entity gltf-model="modelos/fireworks_demo___free_download.glb"
-                  position="0.5 0.1 -0.3"
-                  scale="0.15 0.15 0.15">
+                  position="0.5 1.5 -0.3"
+                  scale="0.1 0.1 0.1">
         </a-entity>
 
-        <!-- Texto principal arriba del modelo -->
-        <a-text value="Hina" 
-                position="0 2.5 0.3" 
-                color="#FFD700" 
-                align="center" 
-                scale="2 2 2">
+        <!-- NUEVOS TEXTOS flotando arriba y separados -->
+        <a-text value="Oh no"
+                position="0 2.5 0.2"
+                color="red"
+                align="center"
+                scale="2.5 2.5 2.5"
+                animation="property: position; dir: alternate; dur: 1200; easing: easeInOutSine; to: 0 2.8 0.2; loop: true">
         </a-text>
 
-        <!-- Textos flotantes animados más arriba -->
-        <a-text value="¡Bienvenida!" 
-                color="#FF69B4" 
-                position="-1 3.8 0.2" 
-                scale="1.5 1.5 1.5"
-                animation="property: position; dir: alternate; dur: 2000; easing: easeInOutSine; to: -1 4.5 0.2; loop: true">
+        <a-text value="¡Me atrapaste!"
+                position="0 3.1 0.2"
+                color="white"
+                align="center"
+                scale="2 2 2"
+                animation="property: position; dir: alternate; dur: 1500; easing: easeInOutSine; to: 0 3.6 0.2; loop: true">
         </a-text>
 
-        <a-text value="🎉 Takodachi AR 🎉" 
-                color="#00FFFF" 
-                position="1 3.8 0.2" 
-                scale="1.2 1.2 1.2"
-                animation="property: position; dir: alternate; dur: 2000; easing: easeInOutSine; to: 1 4.5 0.2; loop: true">
-        </a-text>
-
-        <!-- Fuegos artificiales más elevados -->
-        <a-sphere position="0 3 0.6" radius="0.07" color="#FFD700"
-                animation__rise="property: position; to: 0 4.5 0.6; dur: 1800; easing: easeOutCubic; loop: true"
-                animation__fade="property: material.opacity; to: 0; dur: 1800; loop: true">
+        <!-- Fuegos artificiales esferas (más visibles y elevados) -->
+        <a-sphere position="0 2.5 0.6" radius="0.07" color="#FFD700"
+                  animation__rise="property: position; to: 0 4.2 0.6; dur: 1600; loop: true"
+                  animation__fade="property: material.opacity; to: 0; dur: 1600; loop: true">
         </a-sphere>
 
-        <a-sphere position="0.3 2.8 0.5" radius="0.06" color="#FF0000"
-                animation__rise="property: position; to: 0.3 4.3 0.5; dur: 2000; easing: easeOutCubic; loop: true"
-                animation__fade="property: material.opacity; to: 0; dur: 2000; loop: true">
+        <a-sphere position="0.3 2.4 0.5" radius="0.06" color="#FF0000"
+                  animation__rise="property: position; to: 0.3 4.1 0.5; dur: 1800; loop: true"
+                  animation__fade="property: material.opacity; to: 0; dur: 1800; loop: true">
         </a-sphere>
 
-        <a-sphere position="-0.3 2.8 0.4" radius="0.06" color="#00FF00"
-                animation__rise="property: position; to: -0.3 4.2 0.4; dur: 1900; easing: easeOutCubic; loop: true"
-                animation__fade="property: material.opacity; to: 0; dur: 1900; loop: true">
+        <a-sphere position="-0.3 2.4 0.4" radius="0.06" color="#00FF00"
+                  animation__rise="property: position; to: -0.3 4.0 0.4; dur: 1700; loop: true"
+                  animation__fade="property: material.opacity; to: 0; dur: 1700; loop: true">
         </a-sphere>
 
       </a-marker>
