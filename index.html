@@ -14,10 +14,16 @@
 
         <!-- Modelo principal -->
         <a-entity gltf-model="modelos/takodachi.glb"
-          position="0 0.1 0"
-          scale="0.04 0.04 0.04"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 6000"
-          atrapar-evento>
+                  position="0 0.1 0"
+                  scale="0.04 0.04 0.04"
+                  atrapar-evento
+                  animation="property: scale; dir: alternate; dur: 1000; easing: easeInOutSine; to: 0.08 0.08 0.08; loop: true">
+        </a-entity>
+
+        <a-entity id="filtro-alerta" geometry="primitive: plane; height: 10; width: 10"
+                  position="0 0 -2"
+                  material="color: red; opacity: 0.3"
+                  visible="false">
         </a-entity>
 
         <!-- Modelo adicional: fuegos artificiales (subido para visibilidad) -->
@@ -67,15 +73,20 @@
         init: function () {
           const modelo = this.el;
           const escena = document.querySelector('a-scene');
+          const overlay = document.querySelector('#filtro-alerta');
     
-          // Cambia a color rojo semi-transparente
+          // Cambiar color del modelo
           modelo.setAttribute('material', 'color: red; opacity: 0.7');
     
-          // Espera 60 segundos (60000 ms)
+          // Mostrar fondo rojo semitransparente
+          overlay.setAttribute('visible', true);
+    
+          // Ocultar modelo y overlay después de 60s
           setTimeout(() => {
             modelo.setAttribute('visible', false);
+            overlay.setAttribute('visible', false);
     
-            // Crear texto +1 punto
+            // Mostrar +1 punto
             const texto = document.createElement('a-text');
             texto.setAttribute('value', '+1 punto');
             texto.setAttribute('position', '0 1.5 0.3');
